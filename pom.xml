@@ -10,9 +10,9 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <modules>
-        <module>tamboot-cloud-admin-system-svc</module>
-        <module>tamboot-cloud-admin-app</module>
-        <module>tamboot-cloud-admin-manage-app</module>
+        <module>tamboot-cloud-admin-security</module>
+        <module>tamboot-cloud-admin-system-ms</module>
+        <module>tamboot-cloud-admin-system-app</module>
     </modules>
 
     <properties>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tamboot.cloud.admin.systemms.mapper.SystemMenuMapper">
+    <resultMap type="com.tamboot.cloud.admin.systemms.model.SystemMenuModel" id="Model"></resultMap>
+
+    <select id="selectAllByRoleCodes" resultMap="Model">
+        select
+            DISTINCT(sm.id),
+            sm.name,
+            sm.path,
+            sm.locale,
+            sm.icon,
+            sm.order_index,
+            sm.parent
+        from system_role_menu srm
+            left join system_menu sm on sm.id = srm.menu_id
+        where srm.role_code in
+            <foreach collection="roleCodes" item="roleCode" open="(" separator="," close=")">
+                #{roleCode}
+            </foreach>
+    </select>
+
+</mapper>
