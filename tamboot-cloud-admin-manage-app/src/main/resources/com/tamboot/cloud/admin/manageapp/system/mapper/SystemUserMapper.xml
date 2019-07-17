@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tamboot.cloud.admin.manageapp.system.mapper.SystemUserMapper">
+    <resultMap id="Model" type="com.tamboot.cloud.admin.manageapp.system.model.SystemUserModel"></resultMap>
+    <resultMap id="Dto" type="com.tamboot.cloud.admin.manageapp.system.dto.SystemUserDto"></resultMap>
+    
+    <select id="selectOneByUsername" resultMap="Model">
+        select * from system_user where username = #{username} limit 0,1
+    </select>
+
+    <select id="pageDtoByCondition" resultMap="Dto">
+        select
+            su.id,
+            su.username,
+            su.status,
+            group_concat(sur.role_code) role_codes,
+            group_concat(sr.role_name) role_names
+        from system_user su
+            left join system_user_role sur on sur.user_id = su.id
+            left join system_role sr on sr.role_code = sur.role_code
+        <where>
+            <if test="@com.tamboot.common.tools.text.TextUtil@isNotEmpty(condition.usernameLike)">su.username like concat('%', #{condition.usernameLike}, '%')</if>
+            <if test="condition.status != null">and su.status = #{condition.status}</if>
+            <if test="@com.tamboot.common.tools.text.TextUtil@isNotEmpty(condition.roleCode)">
+                and exists (
+                    select 1 from system_user_role t where t.user_id = su.id and t.role_code = #{condition.roleCode}
+                )
+            </if>
+        </where>
+        group by
+            su.id,
+            su.username,
+            su.status
+        order by
+            su.status desc,
+            su.create_time desc
+    </select>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tamboot.cloud.admin.manageapp.system.mapper.SystemRoleMenuMapper">
+    <resultMap type="com.tamboot.cloud.admin.manageapp.system.model.SystemRoleMenuModel" id="Model"></resultMap>
+
+    <delete id="deleteByRoleCode">
+        delete from system_role_menu where role_code = #{roleCode}
+    </delete>
+
+    <delete id="deleteByMenuId">
+        delete from system_role_menu where menu_id = #{menuId}
+    </delete>
+
+    <delete id="deleteByIds">
+        delete from system_role_menu where id in
+            <foreach collection="ids" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+    </delete>
+
+    <select id="selectAllByRoleCode" resultMap="Model">
+        select * from system_role_menu where role_code = #{roleCode}
+    </select>
+
+</mapper>

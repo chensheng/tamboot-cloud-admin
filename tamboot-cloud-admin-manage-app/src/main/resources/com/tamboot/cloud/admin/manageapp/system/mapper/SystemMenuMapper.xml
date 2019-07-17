@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tamboot.cloud.admin.manageapp.system.mapper.SystemMenuMapper">
+    <resultMap type="com.tamboot.cloud.admin.manageapp.system.model.SystemMenuModel" id="Model"></resultMap>
+
+    <select id="selectAllByParent" resultMap="Model">
+        select * from system_menu where parent = #{parent}
+    </select>
+
+    <select id="selectAll" resultMap="Model">
+        select * from system_menu
+    </select>
+
+    <select id="selectAllByRoleCodes" resultMap="Model">
+        select
+            DISTINCT(sm.id),
+            sm.name,
+            sm.path,
+            sm.locale,
+            sm.icon,
+            sm.order_index,
+            sm.parent
+        from system_role_menu srm
+            left join system_menu sm on sm.id = srm.menu_id
+        where srm.role_code in
+            <foreach collection="roleCodes" item="roleCode" open="(" separator="," close=")">
+                #{roleCode}
+            </foreach>
+    </select>
+
+    <select id="selectAllIdsByRoleCodes" resultType="java.lang.Long">
+        select
+            DISTINCT(sm.id)
+        from system_role_menu srm
+            left join system_menu sm on sm.id = srm.menu_id
+        where srm.role_code in
+        <foreach collection="roleCodes" item="roleCode" open="(" separator="," close=")">
+            #{roleCode}
+        </foreach>
+    </select>
+
+    <select id="selectAllByIds" resultMap="Model">
+        select
+            *
+        from system_menu
+        where id in
+            <foreach collection="ids" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+    </select>
+</mapper>

@@ -1,0 +1,35 @@
+server:
+  port: 9092
+eureka:
+  client:
+    registerWithEureka: false
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    name: manage-app
+  security:
+    useRedisRepo: true
+    loginPath: /login
+  redis:
+    host: 127.0.0.1
+    port: 6379
+  transaction:
+    rollback-on-commit-failure: true
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/tamboot_cloud_db?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Hongkong
+    username: root
+    password: Aa123456
+    hikari:
+      maximum-pool-size: 15
+      max-lifetime: 1800000
+      connection-timeout: 30000
+  resources:
+    static-locations: classpath:/apidoc/
+mybatis:
+  throwVersionLockException: true
+  configuration:
+    mapUnderscoreToCamelCase: true
+  snowFlake:
+    dynamicMachineId:
+      database: tamboot_cloud_db
