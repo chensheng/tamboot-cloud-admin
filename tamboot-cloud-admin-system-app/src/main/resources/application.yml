@@ -10,7 +10,7 @@ spring:
     name: system-app
   security:
     useRedisRepo: true
-    loginPath: /login
+    loginPath: /${spring.application.name}/login
   redis:
     host: 127.0.0.1
     port: 6379
