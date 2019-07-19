@@ -11,6 +11,7 @@ spring:
   security:
     useRedisRepo: true
     loginPath: /${spring.application.name}/login
+    tokenExpirySeconds: 28800
   redis:
     host: 127.0.0.1
     port: 6379
