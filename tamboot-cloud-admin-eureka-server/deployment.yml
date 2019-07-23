@@ -12,7 +12,6 @@ spec:
   selector:
     matchLabels:
       app: tamboot-cloud-admin-eureka-app
-  serviceName: tamboot-cloud-admin-eureka-service
   template:
     metadata:
       labels:
