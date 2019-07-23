@@ -56,8 +56,6 @@ spec:
           defaultMode: 420
           name: tamboot-cloud-admin-eureka-config
         name: volume-config
-  updateStrategy:
-    type: RollingUpdate
 
 ---
 apiVersion: v1
