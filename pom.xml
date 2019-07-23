@@ -13,6 +13,7 @@
         <module>tamboot-cloud-admin-security</module>
         <module>tamboot-cloud-admin-system-ms</module>
         <module>tamboot-cloud-admin-system-app</module>
+        <module>tamboot-cloud-admin-eureka-server</module>
     </modules>
 
     <properties>
