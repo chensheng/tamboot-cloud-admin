@@ -72,6 +72,4 @@ spec:
   selector:
     app: tamboot-cloud-admin-eureka-app
   sessionAffinity: None
-  type: ClusterIP
-status:
-  loadBalancer: {}
+  type: LoadBalance
