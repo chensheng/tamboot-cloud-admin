@@ -1,6 +1,8 @@
 server:
   port: 9092
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     registerWithEureka: false
     serviceUrl:
@@ -13,6 +15,7 @@ spring:
     loginPath: /${spring.application.name}/login
     tokenExpirySeconds: 28800
   redis:
+    namespace: tamboot-cloud-admin
     host: 127.0.0.1
     port: 6379
   transaction:
