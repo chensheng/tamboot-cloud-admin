@@ -16,7 +16,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             sm.parent
         from system_role_menu srm
             left join system_menu sm on sm.id = srm.menu_id
-        where srm.role_code in
+        where sm.id is not null
+            and srm.role_code in
             <foreach collection="roleCodes" item="roleCode" open="(" separator="," close=")">
                 #{roleCode}
             </foreach>
