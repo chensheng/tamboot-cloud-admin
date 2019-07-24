@@ -72,4 +72,4 @@ spec:
   selector:
     app: tamboot-cloud-admin-eureka-app
   sessionAffinity: None
-  type: LoadBalance
+  type: LoadBalancer
