@@ -1,0 +1,75 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  labels:
+    app: tamboot-cloud-admin-system-ms
+    environment: product
+    tier: backend
+  name: tamboot-cloud-admin-system-ms
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tamboot-cloud-admin-system-ms
+  template:
+    metadata:
+      labels:
+        app: tamboot-cloud-admin-system-ms
+    spec:
+      containers:
+      - command:
+        - java
+        - '-Xms64m'
+        - '-Xmx256m'
+        - '-jar'
+        - app.jar
+        env:
+        - name: LANG
+          value: C.UTF-8
+        - name: JAVA_HOME
+          value: /usr/lib/jvm/java-1.8-openjdk
+        image: >-
+          registry-vpc.cn-shenzhen.aliyuncs.com/registry_tam/tamboot-cloud-admin-system-ms:1.0.0-SNAPSHOT
+        imagePullPolicy: Always
+        name: tamboot-cloud-admin-system-ms
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /tmp
+          name: volume-tmp
+        - mountPath: /usr/local/app/config
+          name: volume-config
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - emptyDir: {}
+        name: volume-tmp
+      - configMap:
+          defaultMode: 420
+          name: tamboot-cloud-admin-system-ms-config
+        name: volume-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tamboot-cloud-admin-system-ms-service
+  namespace: default
+spec:
+  ports:
+  - name: tamboot-cloud-admin-system-ms-service
+    port: 9091
+    protocol: TCP
+    targetPort: 9091
+  selector:
+    app: tamboot-cloud-admin-system-ms
+  sessionAffinity: None
+  type: ClusterIP
