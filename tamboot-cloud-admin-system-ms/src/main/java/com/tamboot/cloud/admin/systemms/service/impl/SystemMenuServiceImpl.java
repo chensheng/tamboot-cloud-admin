@@ -6,6 +6,9 @@ import com.tamboot.cloud.admin.systemms.model.SystemMenuModel;
 import com.tamboot.cloud.admin.systemms.service.SystemMenuService;
 import com.tamboot.cloud.admin.systemms.service.SystemRoleService;
 import com.tamboot.common.tools.collection.ArrayUtil;
+import com.tamboot.common.tools.mapper.JsonMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,8 @@ import java.util.*;
 @Service
 @Transactional(readOnly = true)
 public class SystemMenuServiceImpl implements SystemMenuService {
+    private static final Logger logger = LoggerFactory.getLogger(SystemMenuServiceImpl.class);
+
     private static final Comparator<MenuTree> menuTreeComparator;
 
     @Autowired
@@ -35,6 +40,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 
         Map<Long, List<SystemMenuModel>> parentAndMenusMemo = new HashMap<Long, List<SystemMenuModel>>();
         for (SystemMenuModel menu : menus) {
+            logger.error("======menu is: {}", JsonMapper.nonNullMapper().toJson(menu));
             if (menu.getParent() != null) {
                 if (!parentAndMenusMemo.containsKey(menu.getParent())) {
                     parentAndMenusMemo.put(menu.getParent(), new ArrayList<SystemMenuModel>());
