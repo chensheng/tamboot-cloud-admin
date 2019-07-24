@@ -5,6 +5,7 @@ server:
   port: 8761
 eureka:
   instance:
+    preferIpAddress: true
     hostname: localhost
   server:
     enable-self-preservation: false
