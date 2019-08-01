@@ -9,4 +9,4 @@ RUN mkdir app && mkdir app/config && mkdir app/logs \
     && echo "Asia/Shanghai" > /etc/timezone
 COPY target/*.jar app/app.jar
 WORKDIR /usr/local/app
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "app.jar"]
