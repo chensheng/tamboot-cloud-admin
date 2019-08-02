@@ -30,7 +30,7 @@ spec:
         - name: JAVA_HOME
           value: /usr/lib/jvm/java-1.8-openjdk
         image: >-
-          registry-vpc.cn-shenzhen.aliyuncs.com/registry_tam/tamboot-cloud-admin-system-app:1.0.0-SNAPSHOT
+          registry-vpc.cn-shenzhen.aliyuncs.com/registry_tam/tamboot-cloud-admin-system-app:1.5.0.RELEASE
         imagePullPolicy: Always
         name: tamboot-cloud-admin-system-app
         resources:
