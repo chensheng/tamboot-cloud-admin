@@ -1,0 +1,11 @@
+/src/
+/.classpath
+/.settings/
+/.project
+/.idea/
+/target/classes/
+/target/maven-archiver/
+target/maven-status/
+*.original
+*.iml
+*.class
