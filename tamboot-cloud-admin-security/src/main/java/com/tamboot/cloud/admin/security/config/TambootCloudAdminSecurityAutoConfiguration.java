@@ -12,14 +12,16 @@ import feign.codec.Decoder;
 import feign.codec.Encoder;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.openfeign.FeignClientsConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
+@EnableConfigurationProperties(TambootCloudAdminSecurityProperties.class)
 @AutoConfigureAfter(TambootCloudClientAutoConfiguration.class)
-public class TambootCloudAdminAppAutoConfiguration {
+public class TambootCloudAdminSecurityAutoConfiguration {
     @Bean
     public CloudAppContextHolder cloudAppContextHolder() {
         return new CloudAppContextHolder();

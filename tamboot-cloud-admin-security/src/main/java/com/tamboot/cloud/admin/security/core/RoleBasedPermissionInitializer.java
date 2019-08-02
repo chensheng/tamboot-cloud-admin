@@ -1,10 +1,12 @@
 package com.tamboot.cloud.admin.security.core;
 
+import com.tamboot.cloud.admin.security.config.TambootCloudAdminSecurityProperties;
 import com.tamboot.cloud.admin.security.ms.api.SecuritySystemMsApi;
 import com.tamboot.security.permission.RoleBasedPermission;
 import com.tamboot.security.permission.RoleBasedPermissionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 
@@ -15,6 +17,16 @@ public class RoleBasedPermissionInitializer implements ApplicationListener<Appli
     
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
+        TambootCloudAdminSecurityProperties properties = null;
+        try {
+            properties = CloudAppContextHolder.get().getBean(TambootCloudAdminSecurityProperties.class);
+        } catch (BeansException e) {
+        }
+
+        if (properties == null || !properties.isRefreshPermissionOnStartUp()) {
+            return;
+        }
+
         SecuritySystemMsApi systemMsApi = CloudAppContextHolder.get().getBean(SecuritySystemMsApi.class);
         List<RoleBasedPermission> permissionList = systemMsApi.findAllRoleBasedPermissions().getData();
         if (permissionList == null) {

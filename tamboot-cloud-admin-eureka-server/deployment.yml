@@ -2,20 +2,20 @@ apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   labels:
-    app: tamboot-cloud-admin-eureka-app
+    app: tamboot-cloud-admin-eureka-server
     environment: product
-    tier: backend
-  name: tamboot-cloud-admin-eureka-app
-  namespace: default
+    tier: middleware
+  name: tamboot-cloud-admin-eureka-server
+  namespace: middleware
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tamboot-cloud-admin-eureka-app
+      app: tamboot-cloud-admin-eureka-server
   template:
     metadata:
       labels:
-        app: tamboot-cloud-admin-eureka-app
+        app: tamboot-cloud-admin-eureka-server
     spec:
       containers:
       - command:
@@ -32,7 +32,7 @@ spec:
         image: >-
           registry-vpc.cn-shenzhen.aliyuncs.com/registry_tam/tamboot-cloud-admin-eureka-server:1.0.0-SNAPSHOT
         imagePullPolicy: Always
-        name: tamboot-cloud-admin-eureka-app
+        name: tamboot-cloud-admin-eureka-server
         resources:
           requests:
             cpu: 100m
@@ -54,22 +54,26 @@ spec:
         name: volume-tmp
       - configMap:
           defaultMode: 420
-          name: tamboot-cloud-admin-eureka-config
+          name: tamboot-cloud-admin-eureka-server-config
         name: volume-config
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: tamboot-cloud-admin-eureka-service
-  namespace: default
+  annotations:
+    service.beta.kubernetes.io/alicloud-loadbalancer-address-type: intranet
+    service.beta.kubernetes.io/alicloud-loadbalancer-force-override-listeners: 'true'
+    service.beta.kubernetes.io/alicloud-loadbalancer-id: lb-bp1pwbgq1ir9mf822tmvm
+  name: tamboot-cloud-admin-eureka-server-service
+  namespace: middleware
 spec:
   ports:
-  - name: tamboot-cloud-admin-eureka-service
+  - name: tamboot-cloud-admin-eureka-server-service
     port: 8761
     protocol: TCP
     targetPort: 8761
   selector:
-    app: tamboot-cloud-admin-eureka-app
+    app: tamboot-cloud-admin-eureka-server
   sessionAffinity: None
   type: LoadBalancer
