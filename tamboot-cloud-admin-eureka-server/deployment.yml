@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   labels:
     app: tamboot-cloud-admin-eureka-server
-    environment: product
     tier: middleware
   name: tamboot-cloud-admin-eureka-server
   namespace: middleware
@@ -30,7 +29,7 @@ spec:
         - name: JAVA_HOME
           value: /usr/lib/jvm/java-1.8-openjdk
         image: >-
-          registry-vpc.cn-shenzhen.aliyuncs.com/registry_tam/tamboot-cloud-admin-eureka-server:1.5.0.RELEASE
+          registry-vpc.cn-shenzhen.aliyuncs.com/registry_tam/tamboot-cloud-admin-eureka-server:1.0.0-SNAPSHOT
         imagePullPolicy: Always
         name: tamboot-cloud-admin-eureka-server
         resources:
@@ -64,12 +63,12 @@ metadata:
   annotations:
     service.beta.kubernetes.io/alicloud-loadbalancer-address-type: intranet
     service.beta.kubernetes.io/alicloud-loadbalancer-force-override-listeners: 'true'
-    service.beta.kubernetes.io/alicloud-loadbalancer-id: lb-bp1pwbgq1ir9mf822tmvm
+    service.beta.kubernetes.io/alicloud-loadbalancer-id: lb-wz9tp13tav4ecl4fbnnfc
   name: tamboot-cloud-admin-eureka-server-service
   namespace: middleware
 spec:
   ports:
-  - name: tamboot-cloud-admin-eureka-server-service
+  - name: http
     port: 8761
     protocol: TCP
     targetPort: 8761
