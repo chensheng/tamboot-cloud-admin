@@ -12,6 +12,7 @@ spring:
     name: system-app
   security:
     useRedisRepo: true
+    refreshPermissionOnStartUp: true
     loginPath: /${spring.application.name}/login
     tokenExpirySeconds: 28800
   redis:
