@@ -63,7 +63,7 @@ metadata:
   annotations:
     service.beta.kubernetes.io/alicloud-loadbalancer-address-type: intranet
     service.beta.kubernetes.io/alicloud-loadbalancer-force-override-listeners: 'true'
-    service.beta.kubernetes.io/alicloud-loadbalancer-id: lb-wz9tp13tav4ecl4fbnnfc
+    service.beta.kubernetes.io/alicloud-loadbalancer-id: lb-wz9ja13xj2ta4bwynpian
   name: tamboot-cloud-admin-eureka-server-service
   namespace: middleware
 spec:
