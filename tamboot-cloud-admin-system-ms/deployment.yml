@@ -55,20 +55,3 @@ spec:
           defaultMode: 420
           name: tamboot-cloud-admin-system-ms-config
         name: volume-config
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: tamboot-cloud-admin-system-ms-service
-  namespace: microservice
-spec:
-  ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    app: tamboot-cloud-admin-system-ms
-  sessionAffinity: None
-  type: ClusterIP
