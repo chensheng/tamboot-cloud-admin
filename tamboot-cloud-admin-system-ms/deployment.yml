@@ -20,7 +20,7 @@ spec:
       - command:
         - java
         - '-Xms64m'
-        - '-Xmx256m'
+        - '-Xmx512m'
         - '-jar'
         - app.jar
         env:
