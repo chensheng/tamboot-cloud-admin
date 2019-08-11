@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   labels:
     app: tamboot-cloud-admin-eureka-server
-    tier: middleware
   name: tamboot-cloud-admin-eureka-server
   namespace: middleware
 spec:
@@ -15,6 +14,7 @@ spec:
     metadata:
       labels:
         app: tamboot-cloud-admin-eureka-server
+        buildVersion: build-${BUILD_ID}
     spec:
       containers:
       - command:

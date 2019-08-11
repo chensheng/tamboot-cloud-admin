@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   labels:
     app: tamboot-cloud-admin-system-ms
-    tier: microservice
   name: tamboot-cloud-admin-system-ms
   namespace: microservice
 spec:
@@ -15,6 +14,7 @@ spec:
     metadata:
       labels:
         app: tamboot-cloud-admin-system-ms
+        buildVersion: build-${BUILD_ID}
     spec:
       containers:
       - command:

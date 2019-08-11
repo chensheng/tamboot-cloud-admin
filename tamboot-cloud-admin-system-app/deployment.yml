@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   labels:
     app: tamboot-cloud-admin-system-app
-    tier: backend
   name: tamboot-cloud-admin-system-app
   namespace: backend
 spec:
@@ -15,6 +14,7 @@ spec:
     metadata:
       labels:
         app: tamboot-cloud-admin-system-app
+        buildVersion: build-${BUILD_ID}
     spec:
       containers:
       - command:
