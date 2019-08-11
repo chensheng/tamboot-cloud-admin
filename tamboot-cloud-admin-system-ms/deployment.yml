@@ -47,7 +47,7 @@ spec:
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
-      terminationGracePeriodSeconds: 30
+      terminationGracePeriodSeconds: 20
       volumes:
       - emptyDir: {}
         name: volume-tmp
