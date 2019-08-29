@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   labels:
     app: tamboot-cloud-admin-system-ms
-    environment: product
-    tier: microservice
   name: tamboot-cloud-admin-system-ms
   namespace: microservice
 spec:
@@ -16,12 +14,13 @@ spec:
     metadata:
       labels:
         app: tamboot-cloud-admin-system-ms
+        buildVersion: build-${BUILD_ID}
     spec:
       containers:
       - command:
         - java
         - '-Xms64m'
-        - '-Xmx256m'
+        - '-Xmx512m'
         - '-jar'
         - app.jar
         env:
@@ -30,7 +29,7 @@ spec:
         - name: JAVA_HOME
           value: /usr/lib/jvm/java-1.8-openjdk
         image: >-
-          registry-vpc.cn-shenzhen.aliyuncs.com/registry_tam/tamboot-cloud-admin-system-ms:1.5.0.RELEASE
+          registry-vpc.cn-shenzhen.aliyuncs.com/registry_tam/tamboot-cloud-admin-system-ms:1.0.0-SNAPSHOT
         imagePullPolicy: Always
         name: tamboot-cloud-admin-system-ms
         resources:
@@ -48,7 +47,7 @@ spec:
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
-      terminationGracePeriodSeconds: 30
+      terminationGracePeriodSeconds: 20
       volumes:
       - emptyDir: {}
         name: volume-tmp
@@ -56,20 +55,3 @@ spec:
           defaultMode: 420
           name: tamboot-cloud-admin-system-ms-config
         name: volume-config
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: tamboot-cloud-admin-system-ms-service
-  namespace: microservice
-spec:
-  ports:
-  - name: tamboot-cloud-admin-system-ms-service
-    port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    app: tamboot-cloud-admin-system-ms
-  sessionAffinity: None
-  type: ClusterIP

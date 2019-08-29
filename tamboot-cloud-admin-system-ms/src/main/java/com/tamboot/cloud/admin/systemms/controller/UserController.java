@@ -16,7 +16,7 @@ public class UserController {
 
     @GetMapping("/findByUsername")
     @IgnoreResponseWrapper
-    SystemUserModel findByUsername(String username) {
+    public SystemUserModel findByUsername(String username) {
         return systemUserService.findByUsername(username);
     }
 }

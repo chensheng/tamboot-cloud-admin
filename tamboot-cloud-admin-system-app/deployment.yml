@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   labels:
     app: tamboot-cloud-admin-system-app
-    environment: product
-    tier: backend
   name: tamboot-cloud-admin-system-app
   namespace: backend
 spec:
@@ -16,6 +14,7 @@ spec:
     metadata:
       labels:
         app: tamboot-cloud-admin-system-app
+        buildVersion: build-${BUILD_ID}
     spec:
       containers:
       - command:
@@ -30,7 +29,7 @@ spec:
         - name: JAVA_HOME
           value: /usr/lib/jvm/java-1.8-openjdk
         image: >-
-          registry-vpc.cn-shenzhen.aliyuncs.com/registry_tam/tamboot-cloud-admin-system-app:1.5.0.RELEASE
+          registry-vpc.cn-shenzhen.aliyuncs.com/registry_tam/tamboot-cloud-admin-system-app:1.0.0-SNAPSHOT
         imagePullPolicy: Always
         name: tamboot-cloud-admin-system-app
         resources:
@@ -65,7 +64,7 @@ metadata:
   namespace: backend
 spec:
   ports:
-  - name: tamboot-cloud-admin-system-app-service
+  - name: http
     port: 80
     protocol: TCP
     targetPort: 80
